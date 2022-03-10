@@ -43,3 +43,6 @@ def test_get_temperature():
     )
 
     assert response.status_code == 422
+
+def test_failure():
+    assert False
