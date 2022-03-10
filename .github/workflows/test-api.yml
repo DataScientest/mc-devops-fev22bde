@@ -1,0 +1,33 @@
+name: Deploy & Test
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+
+  # Disabled for now (waiting rights to prod account)
+  # push:
+  #   branches:
+  #     - main
+  pull_request:
+    branches:
+      - master
+jobs:   
+  test:
+    name: test
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: py.test 
+        working-directory: tests
