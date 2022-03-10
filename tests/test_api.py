@@ -24,7 +24,7 @@ def test_get_temperature():
         }
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 200, response.content
 
     response = requests.get(
         url=f"{API_URL}/temperature",
