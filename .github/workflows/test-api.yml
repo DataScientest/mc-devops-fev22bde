@@ -14,7 +14,6 @@ on:
 jobs:   
   test:
     name: test
-    needs: deploy
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
@@ -27,6 +26,8 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements-dev.txt
+      - name: Run API
+        run: python3 -m uvicorn main:api &
 
       - name: Run tests
         run: py.test 
